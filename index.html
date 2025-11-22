@@ -1,265 +1,152 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《我和僵尸有个约会》AI原生電影 - NFT文化收藏平台</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <title>HKAIFA - Hong Kong AI Film Academy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    colors: {
+                        black: '#1a1a1a', 
+                        offblack: '#222222',
+                        white: '#ffffff',
+                        offwhite: '#f9f9f9',
+                        gray: {
+                            100: '#f3f3f3',
+                            200: '#e5e5e5',
+                            500: '#737373',
+                            900: '#111111'
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --primary: #7e1e1e;
-            --secondary: #c16f42;
-            --accent: #fd7e14;
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
         }
         
-        body {
-            font-family: 'Noto Serif TC', serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(126, 30, 30, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(193, 111, 66, 0.1) 0%, transparent 20%);
+        body[data-lang="en"] .lang-zh { display: none !important; }
+        body[data-lang="zh"] .lang-en { display: none !important; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fff; }
+        ::-webkit-scrollbar-thumb { background: #e5e5e5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ccc; }
+
+        .academy-btn {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+        .academy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .border-grid { border: 1px solid #e5e5e5; }
+
+        .reveal-text { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal-text.active { opacity: 1; transform: translateY(0); }
+        
+        .img-zoom-container { overflow: hidden; }
+        .img-zoom-container img { transition: transform 0.7s ease; }
+        .group:hover .img-zoom-container img { transform: scale(1.05); }
         
         .logo-font {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 800;
-            font-size: 2.5rem;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            display: inline-block;
-            text-shadow: 0 0 15px rgba(253, 126, 20, 0.3);
-            animation: logoGlow 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes logoGlow {
-            0% { text-shadow: 0 0 10px rgba(253, 126, 20, 0.3); }
-            100% { text-shadow: 0 0 25px rgba(253, 126, 20, 0.6), 0 0 35px rgba(126, 30, 30, 0.4); }
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
         
         .logo-sub {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-top: -10px;
-            text-align: center;
-            opacity: 0.8;
+            font-family: 'Space Mono', monospace;
+            font-weight: 400;
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            color: #737373;
         }
         
-        .gradient-text {
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .education-gradient {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
         }
         
-        .gradient-bg {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-        }
-        
-        .accent-bg {
-            background: rgba(253, 126, 20, 0.1);
-            border: 1px solid rgba(253, 126, 20, 0.2);
-        }
-        
-        .card {
-            background-color: rgba(26, 32, 44, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(253, 126, 20, 0.2);
-            border-color: rgba(253, 126, 20, 0.3);
-        }
-        
-        .navbar {
-            background-color: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(253, 126, 20, 0.1);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transition: all 0.3s ease;
-            border: none;
-            font-weight: 600;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(126, 30, 30, 0.4);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-        
-        .btn-secondary:hover {
-            background-color: rgba(253, 126, 20, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        .hero {
+        .section-title {
             position: relative;
-            overflow: hidden;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
+            display: inline-block;
+            margin-bottom: 2rem;
         }
         
-        .hero:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
-            z-index: 1;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.7;
-            animation: bgPan 30s infinite linear;
-        }
-        
-        @keyframes bgPan {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-        
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .animate-fade-in {
-            animation: fadeIn 1s ease-in-out forwards;
-            opacity: 0;
-        }
-        
-        .animate-slide-up {
-            animation: slideUp 0.8s ease-in-out forwards;
-            opacity: 0;
-        }
-        
-        .animate-slide-right {
-            animation: slideRight 0.8s ease-in-out forwards;
-            opacity: 0;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes slideRight {
-            from { transform: translateX(-50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        .progress-bar {
-            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
-            border-radius: 9999px;
-            height: 8px;
-        }
-        
-        .cyber-border {
-            position: relative;
-        }
-        
-        .cyber-border:after {
+        .section-title:after {
             content: '';
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient(45deg, transparent 30%, var(--accent) 45%, var(--secondary) 55%, transparent 70%);
-            background-size: 200% 200%;
-            animation: borderGlow 5s linear infinite;
-            z-index: -1;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: #1a1a1a;
+            border-radius: 1px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .certification-level {
+            display: inline-block;
+            padding: 4px 12px;
             border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: #f3f3f3;
+            color: #737373;
         }
         
-        @keyframes borderGlow {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
+        .level-primary {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
         }
         
-        .ai-element {
-            position: absolute;
-            background-color: rgba(126, 30, 30, 0.1);
-            border: 1px solid rgba(126, 30, 30, 0.3);
-            backdrop-filter: blur(5px);
-            padding: 10px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 12px;
-            color: var(--accent);
-            z-index: 3;
-            pointer-events: none;
-            box-shadow: 0 0 15px rgba(253, 126, 20, 0.1);
+        .level-intermediate {
+            background: rgba(142, 68, 173, 0.1);
+            color: #8e44ad;
         }
         
-        .data-stream {
-            position: absolute;
-            height: 100px;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, var(--accent), var(--secondary), transparent);
-            z-index: 0;
-            animation: dataStream 2s linear infinite;
-            opacity: 0.3;
+        .level-advanced {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
         }
         
-        @keyframes dataStream {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
+        .level-expert {
+            background: rgba(243, 156, 18, 0.1);
+            color: #f39c12;
         }
         
         .mobile-menu {
@@ -269,8 +156,8 @@
             right: 0;
             width: 300px;
             height: 100vh;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
+            border-left: 1px solid #e5e5e5;
             z-index: 1000;
             padding: 20px;
             transform: translateX(100%);
@@ -287,454 +174,84 @@
             right: 20px;
             font-size: 24px;
             cursor: pointer;
-            color: var(--accent);
+            color: #737373;
         }
         
-        .nft-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .card:hover .nft-img {
-            transform: scale(1.05);
-        }
-        
-        .ai-tech-img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        .token-card {
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .token-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(253, 126, 20, 0.25);
-        }
-        
-        .liaozhai-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        .section-title.center:after {
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .ai-chip {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(253, 126, 20, 0.3);
-            border-radius: 20px;
-            padding: 5px 15px;
-            font-size: 0.8rem;
-            display: inline-block;
-            margin: 0 5px 5px 0;
-        }
-        
-        .stats-card {
-            text-align: center;
-            padding: 25px;
-            border-radius: 16px;
-            background: rgba(26, 32, 44, 0.5);
-            border: 1px solid rgba(253, 126, 20, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .stats-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            background: rgba(26, 32, 44, 0.7);
-        }
-        
-        .stats-card i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
-        
-        .stats-card .number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .nft-card-hover {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .nft-card:hover .nft-card-hover {
-            transform: translateY(0);
-        }
-        
-        .filter-pill {
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 16px;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-        
-        .filter-pill.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .filter-pill:hover:not(.active) {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .token-badge {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 2px 8px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            overflow-y: auto;
-        }
-        
-        .modal-content {
-            background-color: #111;
-            margin: 5% auto;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-            z-index: 10;
-        }
-        
-        .nft-detail-container {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        @media (min-width: 768px) {
-            .nft-detail-container {
-                flex-direction: row;
-            }
-        }
-        
-        .nft-detail-image {
-            flex: 1;
-            min-height: 400px;
-            background-color: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .nft-detail-info {
-            flex: 1;
-            padding: 30px;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-        }
-        
-        .recognition-card {
-            background: rgba(26, 32, 44, 0.7);
-            border-radius: 16px;
-            padding: 25px;
-            height: 100%;
-            transition: all 0.3s ease;
-        }
-        
-        .recognition-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(253, 126, 20, 0.1);
-            border: 1px solid rgba(253, 126, 20, 0.2);
-        }
-        
-        .market-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        
-        .market-table th, .market-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .market-table th {
-            background: rgba(253, 126, 20, 0.1);
-            font-weight: 600;
-            color: var(--accent);
-        }
-        
-        .market-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .market-table tr:hover {
-            background: rgba(253, 126, 20, 0.05);
-        }
-        
-        .login-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .login-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 280px;
-            background: rgba(26, 32, 44, 0.95);
-            border: 1px solid rgba(253, 126, 20, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 100;
-        }
-        
-        .login-container:hover .login-dropdown {
+        .mobile-nav-item {
             display: block;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 1.1rem;
         }
         
-        .login-dropdown h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
-        
-        .login-option {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .login-option:hover {
-            background: rgba(253, 126, 20, 0.1);
-        }
-        
-        .login-option i {
-            font-size: 1.25rem;
-            margin-right: 12px;
-            width: 24px;
-            text-align: center;
-        }
-        
-        .login-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 15px 0;
-        }
-        
-        .wallet-option {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(253, 126, 20, 0.2);
+        .mobile-nav-item:last-child {
+            border-bottom: none;
         }
         
         @media (max-width: 768px) {
             .desktop-nav {
                 display: none;
             }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .ai-tech-img {
-                height: 300px;
-            }
-            
-            .logo-font {
-                font-size: 1.8rem;
-            }
-            
-            .hero-bg {
-                animation: none;
-            }
-            
-            .hero {
-                min-height: 50vh;
-            }
-            
-            .section-title:after {
-                width: 40px;
-                bottom: -8px;
-            }
-            
-            .market-table {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .login-dropdown {
-                width: 240px;
-                right: -20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                min-height: 40vh;
-            }
-            
-            .logo-font {
-                font-size: 1.5rem;
-            }
-            
-            .logo-sub {
-                font-size: 0.6rem;
-            }
         }
     </style>
 </head>
-<body>
-    <!-- AI Elements -->
-    <div class="ai-element" style="top: 120px; left: 10%;">
-        NFT_ID: VAM-001 <br>
-        狀態: AI生成中 <br>
-        // 我和僵尸有个约会NFT
-    </div>
-    
-    <div class="ai-element" style="bottom: 150px; right: 15%;">
-        區塊高度: #1128844 <br>
-        哈希: 0x9B3C7...A2F <br>
-        // 區塊鏈認證
-    </div>
-    
-    <!-- Data streams -->
-    <div class="data-stream" style="left: 20%; animation-delay: 0s;"></div>
-    <div class="data-stream" style="left: 40%; animation-delay: 0.5s;"></div>
-    <div class="data-stream" style="left: 60%; animation-delay: 1s;"></div>
-    <div class="data-stream" style="left: 80%; animation-delay: 1.5s;"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar fixed w-full z-50 px-4 py-3">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="liaozhai-logo">
-                <div class="logo-font">我和僵尸有个约会</div>
-                <div class="logo-sub">AI原生電影宇宙</div>
-            </a>
-            <div class="hidden md:flex space-x-8 desktop-nav">
-                <a href="#about" class="hover:text-orange-400 transition">關於項目</a>
-                <a href="#global" class="hover:text-orange-400 transition">文化價值</a>
-                <a href="#nft" class="hover:text-orange-400 transition">NFT系列</a>
-                <a href="#technology" class="hover:text-orange-400 transition">AI技術</a>
-                <a href="#collections" class="hover:text-orange-400 transition">精選收藏</a>
-                <a href="#experience" class="hover:text-orange-400 transition">觀影體驗</a>
-                <a href="#community" class="hover:text-orange-400 transition">社群</a>
-            </div>
-            <div class="flex items-center space-x-4">
-                <!-- Login Container -->
-                <div class="login-container relative">
-                    <a href="#login" class="btn-primary px-6 py-2 rounded-full text-sm">登入</a>
-                    <div class="login-dropdown">
-                        <h3 class="font-bold text-lg mb-4">登入僵尸AI宇宙</h3>
-                        
-                        <div class="login-option" data-login="google">
-                            <i class="fab fa-google text-red-500"></i>
-                            <span>使用Google登入</span>
-                        </div>
-                        
-                        <div class="login-option" data-login="facebook">
-                            <i class="fab fa-facebook text-blue-600"></i>
-                            <span>使用Facebook登入</span>
-                        </div>
-                        
-                        <div class="login-option" data-login="apple">
-                            <i class="fab fa-apple"></i>
-                            <span>使用Apple登入</span>
-                        </div>
-                        
-                        <div class="login-divider"></div>
-                        
-                        <div class="login-option wallet-option" data-login="metamask">
-                            <i class="fas fa-wallet text-yellow-400"></i>
-                            <span>連接MetaMask錢包</span>
-                        </div>
-                        
-                        <div class="login-option wallet-option" data-login="walletconnect">
-                            <i class="fas fa-plug text-blue-300"></i>
-                            <span>連接WalletConnect</span>
-                        </div>
-                    </div>
+<body data-lang="en" class="bg-white text-black selection:bg-black selection:text-white">
+
+    <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 transition-all duration-300">
+        <div class="px-6 md:px-8 py-4 flex justify-between items-center max-w-[1920px] mx-auto">
+            <a href="#" class="flex items-center gap-4 group">
+                <div class="flex flex-col leading-tight">
+                    <span class="logo-font">HKAIFA</span>
+                    <span class="logo-sub">
+                        <span class="lang-en">Hong Kong AI Film Academy</span>
+                        <span class="lang-zh">香港AI電影學院</span>
+                    </span>
                 </div>
+            </a>
+            
+            <div class="hidden xl:flex items-center gap-1 text-[13px] font-medium tracking-wide desktop-nav">
+                <a href="#about" class="px-4 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <span class="lang-en">About</span>
+                    <span class="lang-zh">關於我們</span>
+                </a>
+                <a href="#curriculum" class="px-4 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <span class="lang-en">Curriculum</span>
+                    <span class="lang-zh">課程體系</span>
+                </a>
+                <a href="#partnership" class="px-4 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <span class="lang-en">Partnership</span>
+                    <span class="lang-zh">合作中心</span>
+                </a>
+                <a href="#certification" class="px-4 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <span class="lang-en">Certification</span>
+                    <span class="lang-zh">認證體系</span>
+                </a>
+                <a href="#services" class="px-4 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <span class="lang-en">Services</span>
+                    <span class="lang-zh">支持服務</span>
+                </a>
+                <a href="#apply" class="px-4 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <span class="lang-en">Apply</span>
+                    <span class="lang-zh">立即申請</span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleLanguage()" class="text-xs font-mono border border-gray-200 px-3 py-1.5 rounded-full hover:bg-black hover:text-white transition-all uppercase">
+                    <span class="lang-en">繁中</span>
+                    <span class="lang-zh">EN</span>
+                </button>
                 
-                <button class="md:hidden text-white mobile-menu-btn">
-                    <i class="fas fa-bars text-xl"></i>
+                <a href="https://www.hkaifa.academy/#/home" class="hidden md:flex bg-black text-white text-[13px] font-medium px-6 py-3 rounded-full academy-btn items-center gap-2">
+                    <span class="lang-en">Apply Now</span>
+                    <span class="lang-zh">立即申請</span>
+                </a>
+                
+                <button class="xl:hidden text-black mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
                 </button>
             </div>
         </div>
@@ -743,1470 +260,888 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu">
         <div class="mobile-menu-close">
-            <i class="fas fa-times"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
         </div>
         
-        <div class="mt-12 flex flex-col space-y-6">
-            <a href="#about" class="text-xl hover:text-orange-400 transition">關於項目</a>
-            <a href="#global" class="text-xl hover:text-orange-400 transition">文化價值</a>
-            <a href="#nft" class="text-xl hover:text-orange-400 transition">NFT系列</a>
-            <a href="#technology" class="text-xl hover:text-orange-400 transition">AI技術</a>
-            <a href="#collections" class="text-xl hover:text-orange-400 transition">精選收藏</a>
-            <a href="#experience" class="text-xl hover:text-orange-400 transition">觀影體驗</a>
-            <a href="#community" class="text-xl hover:text-orange-400 transition">社群</a>
+        <div class="mt-12 flex flex-col">
+            <a href="#about" class="mobile-nav-item">
+                <span class="lang-en">About</span>
+                <span class="lang-zh">關於我們</span>
+            </a>
+            <a href="#curriculum" class="mobile-nav-item">
+                <span class="lang-en">Curriculum</span>
+                <span class="lang-zh">課程體系</span>
+            </a>
+            <a href="#partnership" class="mobile-nav-item">
+                <span class="lang-en">Partnership</span>
+                <span class="lang-zh">合作中心</span>
+            </a>
+            <a href="#certification" class="mobile-nav-item">
+                <span class="lang-en">Certification</span>
+                <span class="lang-zh">認證體系</span>
+            </a>
+            <a href="#services" class="mobile-nav-item">
+                <span class="lang-en">Services</span>
+                <span class="lang-zh">支持服務</span>
+            </a>
+            <a href="#apply" class="mobile-nav-item">
+                <span class="lang-en">Apply</span>
+                <span class="lang-zh">立即申請</span>
+            </a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="container mx-auto px-4 hero-content">
-            <div class="max-w-3xl animate-fade-in">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">《我和僵尸有个约会》AI原生電影宇宙</h1>
-                <p class="text-xl text-gray-300 mb-8">
-                    全球首部完全由AI技術製作的現代奇幻電影，打造創新的NFT觀影生態系統，收藏獨一無二的數位文化資產。
-                </p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#nft" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
-                        探索NFT系列
-                    </a>
-                    <a href="#global" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
-                        文化價值
-                    </a>
+    <header class="relative pt-32 pb-20 px-6 md:px-8 max-w-[1920px] mx-auto border-b border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-8">
+                <div class="mb-6 inline-flex items-center gap-2 border border-gray-200 rounded-full px-3 py-1 bg-gray-50">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-[10px] uppercase tracking-widest font-mono font-medium text-gray-500">
+                        <span class="lang-en">World's First AI-native Film Education Institution</span>
+                        <span class="lang-zh">全球首個AI原生影視教育機構</span>
+                    </span>
                 </div>
                 
-                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="stats-card">
-                        <i class="fas fa-film"></i>
-                        <div class="number">25年</div>
-                        <div class="text-sm">經典IP</div>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.9] mb-10 text-black">
+                    <span class="lang-en">World's First <br> AI-native Film Education</span>
+                    <span class="lang-zh">全球首個 <br> AI原生影視教育</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-500 max-w-2xl leading-relaxed font-light">
+                    <span class="lang-en">HKAIFA bridges the gap between technological innovation and creative expression through its innovative four-tier curriculum structure and blockchain certification system. Join us to cultivate talent in 68 professional fields and address the global shortage of 180,000 AI film professionals.</span>
+                    <span class="lang-zh">HKAIFA透過創新的四層課程架構與區塊鏈認證體系，填補技術創新與創意表達間的關鍵空白。加入我們，培養68個專業方向人才，解決全球18萬AI影視專業人才短缺問題。</span>
+                </p>
+                
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-8">
+                    <a href="https://www.hkaifa.academy/#/home" class="bg-black text-white text-[13px] font-medium px-8 py-4 rounded-full academy-btn text-center inline-flex items-center justify-center">
+                        <span class="lang-en">Start Your Journey</span>
+                        <span class="lang-zh">開始你的旅程</span>
+                    </a>
+                    <a href="#curriculum" class="border border-black text-black text-[13px] font-medium px-8 py-4 rounded-full text-center inline-flex items-center justify-center hover:bg-black hover:text-white transition-all">
+                        <span class="lang-en">Explore Courses</span>
+                        <span class="lang-zh">探索課程</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:col-span-4 flex flex-col justify-end">
+                <div class="grid grid-cols-2 gap-px bg-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+                    <div class="bg-white p-6 hover:bg-gray-50 transition-colors">
+                        <span class="block text-3xl font-bold mb-1">144</span>
+                        <span class="text-[10px] uppercase font-mono text-gray-400">
+                            <span class="lang-en">Professional Courses</span>
+                            <span class="lang-zh">門專業課程</span>
+                        </span>
                     </div>
-                    <div class="stats-card">
-                        <i class="fas fa-clock"></i>
-                        <div class="number">120分鐘</div>
-                        <div class="text-sm">完整電影</div>
+                    <div class="bg-white p-6 hover:bg-gray-50 transition-colors">
+                        <span class="block text-3xl font-bold mb-1">68</span>
+                        <span class="text-[10px] uppercase font-mono text-gray-400">
+                            <span class="lang-en">Career Paths</span>
+                            <span class="lang-zh">個職業方向</span>
+                        </span>
                     </div>
-                    <div class="stats-card">
-                        <i class="fas fa-cubes"></i>
-                        <div class="number">168,000</div>
-                        <div class="text-sm">限量NFT</div>
+                    <div class="bg-white p-6 hover:bg-gray-50 transition-colors">
+                        <span class="block text-3xl font-bold mb-1">100</span>
+                        <span class="text-[10px] uppercase font-mono text-gray-400">
+                            <span class="lang-en">Partnership Centers (2030)</span>
+                            <span class="lang-zh">個合作中心(2030)</span>
+                        </span>
                     </div>
-                    <div class="stats-card">
-                        <i class="fas fa-globe-asia"></i>
-                        <div class="number">180+</div>
-                        <div class="text-sm">國家地區</div>
+                    <div class="bg-white p-6 hover:bg-gray-50 transition-colors">
+                        <span class="block text-3xl font-bold mb-1">50K+</span>
+                        <span class="text-[10px] uppercase font-mono text-gray-400">
+                            <span class="lang-en">Annual Training Goal</span>
+                            <span class="lang-zh">年培訓目標</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="border-b border-gray-200 py-6 overflow-hidden bg-gray-50">
+        <div class="whitespace-nowrap animate-marquee flex items-center gap-12 opacity-80 text-xs font-mono font-medium uppercase tracking-widest text-black">
+            <span class="lang-en">AI Native Director</span><span class="lang-zh">AI原生導演</span> <span>✦</span> 
+            <span class="lang-en">AI System Architect</span><span class="lang-zh">AI系統架構師</span> <span>✦</span> 
+            <span class="lang-en">Web3 Content Architect</span><span class="lang-zh">Web3內容架構師</span> <span>✦</span> 
+            <span class="lang-en">Four-tier Curriculum</span><span class="lang-zh">四層課程架構</span> <span>✦</span> 
+            <span class="lang-en">Blockchain Certification</span><span class="lang-zh">區塊鏈認證</span> <span>✦</span>
+            <span class="lang-en">AI Native Director</span><span class="lang-zh">AI原生導演</span> <span>✦</span> 
+            <span class="lang-en">AI System Architect</span><span class="lang-zh">AI系統架構師</span> <span>✦</span> 
+            <span class="lang-en">Web3 Content Architect</span><span class="lang-zh">Web3內容架構師</span> <span>✦</span> 
+            <span class="lang-en">Four-tier Curriculum</span><span class="lang-zh">四層課程架構</span> <span>✦</span> 
+            <span class="lang-en">Blockchain Certification</span><span class="lang-zh">區塊鏈認證</span> <span>✦</span>
+        </div>
+    </div>
+
+    <section id="about" class="py-24 px-6 md:px-8 max-w-[1920px] mx-auto border-b border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+            <div class="md:col-span-4">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 reveal-text">
+                    <span class="lang-en">Revolutionary <br> AI Film Education</span>
+                    <span class="lang-zh">革命性 <br> AI影視教育</span>
+                </h2>
+                <span class="inline-block px-3 py-1 rounded-full border border-gray-300 text-xs font-mono text-gray-500 uppercase reveal-text delay-100">
+                    <span class="lang-en">// Global Talent Cultivation</span>
+                    <span class="lang-zh">// 全球人才培養</span>
+                </span>
+            </div>
+            <div class="md:col-span-8">
+                <p class="text-xl font-light text-gray-600 mb-12 reveal-text">
+                    <span class="lang-en">The global AI film market is projected to expand from $6.1 billion in 2024 to an estimated $20 billion by 2028. HKAIFA is committed to addressing the severe shortage of over 180,000 AI film professionals worldwide.</span>
+                    <span class="lang-zh">全球AI影視市場從2024年的61億美元擴展到2028年預估的200億美元，HKAIFA致力於解決全球超過18萬AI影視專業人才的嚴重短缺問題。</span>
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 reveal-text">
+                    <div class="p-6 border border-gray-100 bg-gray-50 rounded-lg">
+                        <h4 class="text-xs uppercase tracking-wider text-gray-500 mb-4">
+                            <span class="lang-en">Traditional</span>
+                            <span class="lang-zh">傳統教育</span>
+                        </h4>
+                        <h3 class="text-2xl font-bold mb-4 line-through decoration-gray-400 decoration-2 text-gray-400">
+                            <span class="lang-en">Traditional Film Education</span>
+                            <span class="lang-zh">傳統影視教育</span>
+                        </h3>
+                        <ul class="text-sm text-gray-500 space-y-3 list-disc pl-4">
+                            <li><span class="lang-en">Disconnect between technology and creativity</span><span class="lang-zh">技術與創意脫節</span></li>
+                            <li><span class="lang-en">Slow curriculum updates</span><span class="lang-zh">課程更新緩慢</span></li>
+                            <li><span class="lang-en">Opaque certification system</span><span class="lang-zh">認證體系不透明</span></li>
+                        </ul>
+                    </div>
+                    <div class="p-6 border border-black bg-black text-white rounded-lg shadow-xl">
+                        <h4 class="text-xs uppercase tracking-wider text-gray-400 mb-4">
+                            <span class="lang-en">AI Era</span>
+                            <span class="lang-zh">AI時代</span>
+                        </h4>
+                        <h3 class="text-2xl font-bold mb-4">
+                            <span class="lang-en">AI-native Education</span>
+                            <span class="lang-zh">AI原生教育</span>
+                        </h3>
+                        <ul class="text-sm text-gray-300 space-y-3 list-disc pl-4">
+                            <li><span class="lang-en">Deep integration of technology and creativity</span><span class="lang-zh">技術與創意深度融合</span></li>
+                            <li><span class="lang-en">Real-time curriculum updates</span><span class="lang-zh">實時課程更新</span></li>
+                            <li><span class="lang-en">Blockchain certification system</span><span class="lang-zh">區塊鏈認證體系</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12 reveal-text">
+                    <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 text-center">
+                        <div class="text-3xl mb-4">🚀</div>
+                        <h4 class="font-bold mb-2">
+                            <span class="lang-en">Innovation Driven</span>
+                            <span class="lang-zh">創新驅動</span>
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            <span class="lang-en">Embrace technological change, explore new possibilities of AI and art integration</span>
+                            <span class="lang-zh">擁抱技術變革，探索AI與藝術融合的新可能性</span>
+                        </p>
+                    </div>
+                    <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 text-center">
+                        <div class="text-3xl mb-4">🎨</div>
+                        <h4 class="font-bold mb-2">
+                            <span class="lang-en">Art First</span>
+                            <span class="lang-zh">藝術為本</span>
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            <span class="lang-en">Technology serves artistic expression, maintaining the humanistic spirit of storytelling</span>
+                            <span class="lang-zh">技術服務於藝術表達，保持敘事的人文精神</span>
+                        </p>
+                    </div>
+                    <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 text-center">
+                        <div class="text-3xl mb-4">⭐</div>
+                        <h4 class="font-bold mb-2">
+                            <span class="lang-en">Pursuit of Excellence</span>
+                            <span class="lang-zh">追求卓越</span>
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            <span class="lang-en">Pursue the highest standards in technical capabilities and artistic quality</span>
+                            <span class="lang-zh">在技術能力與藝術品質方面追求最高標準</span>
+                        </p>
+                    </div>
+                    <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 text-center">
+                        <div class="text-3xl mb-4">🌐</div>
+                        <h4 class="font-bold mb-2">
+                            <span class="lang-en">Global Vision</span>
+                            <span class="lang-zh">國際視野</span>
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            <span class="lang-en">Cultivate talents with international competitiveness and cross-cultural understanding</span>
+                            <span class="lang-zh">培養具有國際競爭力和跨文化理解力的人才</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="py-16" id="about">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">重塑現代奇幻經典</h2>
-                <p class="text-xl text-gray-300">
-                    《我和僵尸有个约会》是華語影視史上最具顛覆性的現代奇幻劇集，開創了僵尸題材與現代都市完美結合的先河。
-                    我們運用最先進的生成式AI與區塊鏈技術，為這部擁有25年歷史的經典IP注入數位生命。
+    <section id="curriculum" class="py-24 px-6 md:px-8 max-w-[1920px] mx-auto bg-gray-50">
+        <div class="flex justify-between items-end mb-12 reveal-text">
+            <h2 class="text-3xl font-bold tracking-tight">
+                <span class="lang-en">Four-tier Curriculum Architecture</span>
+                <span class="lang-zh">四層課程架構體系</span>
+            </h2>
+            <span class="text-xs font-mono text-gray-400">
+                <span class="lang-en">Revolutionary Education Model</span>
+                <span class="lang-zh">革命性教育模式</span>
+            </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="group bg-white border border-gray-200 p-5 rounded-xl hover:shadow-2xl hover:border-black/10 transition-all duration-500 reveal-text">
+                <div class="aspect-[4/3] bg-gray-100 mb-6 overflow-hidden rounded-lg img-zoom-container">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Industry Talent Certification" class="w-full h-full object-cover">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-xs text-gray-400">01</span>
+                    <span class="px-2 py-1 bg-black text-white rounded text-[10px] font-bold font-mono">
+                        <span class="lang-en">3 Levels</span>
+                        <span class="lang-zh">3級</span>
+                    </span>
+                </div>
+                <h3 class="text-xl font-bold mb-3 group-hover:text-gray-600 transition-colors">
+                    <span class="lang-en">Industry Talent Certification</span>
+                    <span class="lang-zh">行業人才認證</span>
+                </h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                    <span class="lang-en">Establish a complete industry cognitive framework and core skill foundation with a three-level progressive system</span>
+                    <span class="lang-zh">建立完整的行業認知框架和核心技能基礎，三級遞進體系</span>
                 </p>
             </div>
-            
+
+            <div class="group bg-white border border-gray-200 p-5 rounded-xl hover:shadow-2xl hover:border-black/10 transition-all duration-500 reveal-text delay-100">
+                <div class="aspect-[4/3] bg-gray-100 mb-6 overflow-hidden rounded-lg img-zoom-container">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Professional Talent Certification" class="w-full h-full object-cover">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-xs text-gray-400">02</span>
+                    <span class="px-2 py-1 bg-black text-white rounded text-[10px] font-bold font-mono">
+                        <span class="lang-en">68 Paths</span>
+                        <span class="lang-zh">68方向</span>
+                    </span>
+                </div>
+                <h3 class="text-xl font-bold mb-3 group-hover:text-gray-600 transition-colors">
+                    <span class="lang-en">Professional Talent Certification</span>
+                    <span class="lang-zh">職業人才認證</span>
+                </h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                    <span class="lang-en">68 professional career directions across seven fields, deeply cultivating specific domain expertise</span>
+                    <span class="lang-zh">七大領域68個專業職業方向，深度培養特定領域專業技能</span>
+                </p>
+            </div>
+
+            <div class="group bg-white border border-gray-200 p-5 rounded-xl hover:shadow-2xl hover:border-black/10 transition-all duration-500 reveal-text delay-200">
+                <div class="aspect-[4/3] bg-gray-100 mb-6 overflow-hidden rounded-lg img-zoom-container">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Master Classes & Project Programs" class="w-full h-full object-cover">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-xs text-gray-400">03</span>
+                    <span class="px-2 py-1 bg-black text-white rounded text-[10px] font-bold font-mono">
+                        <span class="lang-en">Top Experts</span>
+                        <span class="lang-zh">頂級專家</span>
+                    </span>
+                </div>
+                <h3 class="text-xl font-bold mb-3 group-hover:text-gray-600 transition-colors">
+                    <span class="lang-en">Master Classes & Project Programs</span>
+                    <span class="lang-zh">大師課及項目班</span>
+                </h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                    <span class="lang-en">Teaching by international top experts and practical project experience</span>
+                    <span class="lang-zh">國際頂尖專家授課與實戰項目經驗</span>
+                </p>
+            </div>
+
+            <div class="group bg-white border border-gray-200 p-5 rounded-xl hover:shadow-2xl hover:border-black/10 transition-all duration-500 reveal-text delay-300">
+                <div class="aspect-[4/3] bg-gray-100 mb-6 overflow-hidden rounded-lg img-zoom-container">
+                    <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Joint Certification Courses" class="w-full h-full object-cover">
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-xs text-gray-400">04</span>
+                    <span class="px-2 py-1 bg-black text-white rounded text-[10px] font-bold font-mono">
+                        <span class="lang-en">Global Recognition</span>
+                        <span class="lang-zh">全球認可</span>
+                    </span>
+                </div>
+                <h3 class="text-xl font-bold mb-3 group-hover:text-gray-600 transition-colors">
+                    <span class="lang-en">Joint Certification Courses</span>
+                    <span class="lang-zh">聯合認證課程</span>
+                </h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                    <span class="lang-en">Joint certification with technology companies, renowned institutions, and industry organizations</span>
+                    <span class="lang-zh">與科技企業、知名院校、行業機構聯合認證</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Popular Professional Tracks -->
+        <div class="mt-20">
+            <h3 class="text-2xl font-bold mb-8 text-center reveal-text">
+                <span class="lang-en">Popular Professional Tracks</span>
+                <span class="lang-zh">熱門專業方向</span>
+            </h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card p-6 animate-slide-up">
-                    <div class="text-orange-400 text-4xl mb-4">
-                        <i class="fas fa-vampire"></i>
+                <div class="p-6 bg-white border border-gray-200 rounded-xl hover:bg-black hover:text-white transition-all duration-300 group">
+                    <div class="certification-level level-advanced">
+                        <span class="lang-en">Professional Certification</span>
+                        <span class="lang-zh">專業認證</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">文化傳承</h3>
-                    <p class="text-gray-400">
-                        讓經典港式奇幻文化通過AI技術跨越語言和文化鴻溝，以更具想像力的方式觸達全球觀眾，展現現代奇幻文化的獨特魅力。
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-white">
+                        <span class="lang-en">AI Native Director</span>
+                        <span class="lang-zh">AI原生導演</span>
+                    </h3>
+                    <p class="text-sm leading-relaxed opacity-70 group-hover:text-gray-300">
+                        <span class="lang-en">Course Code: PTCCC-01<br>Master complete AI director skills and virtual production management</span>
+                        <span class="lang-zh">課程代碼：PTCCC-01<br>掌握完整AI導演技能與虛擬製作管理</span>
                     </p>
-                </div>
-                
-                <div class="card p-6 animate-slide-up">
-                    <div class="text-orange-400 text-4xl mb-4">
-                        <i class="fas fa-robot"></i>
+                    <div class="mt-4 pt-4 border-t border-current opacity-50 text-xs">
+                        <span class="lang-en">200+ Hours | ¥33,800</span>
+                        <span class="lang-zh">200+ 學時 | ¥33,800</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">技術創新</h3>
-                    <p class="text-gray-400">
-                        開創AI原生電影製作的新範式，全流程依靠人工智能完成，推動AI在藝術創作領域的極限應用。
-                    </p>
                 </div>
-                
-                <div class="card p-6 animate-slide-up">
-                    <div class="text-orange-400 text-4xl mb-4">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">全球影響</h3>
-                    <p class="text-gray-400">
-                        通過多語言製作和文化本土化，向世界展示華語現代奇幻文化中人與超自然、現實與虛幻的哲學思考。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Global Recognition Section -->
-    <section class="py-16 bg-gray-900" id="global">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">文化價值與全球影響力</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    《我和僵尸有个约会》作為華語影視經典IP，擁有深厚的文化基礎與廣泛的全球影響力，為本項目提供強大的文化背書與市場認知。
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div class="recognition-card">
-                    <div class="text-orange-400 text-5xl mb-4">
-                        <i class="fas fa-university"></i>
+                <div class="p-6 bg-white border border-gray-200 rounded-xl hover:bg-black hover:text-white transition-all duration-300 group">
+                    <div class="certification-level level-expert">
+                        <span class="lang-en">Technical Certification</span>
+                        <span class="lang-zh">技術認證</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">影視史地位</h3>
-                    <p class="text-gray-400 mb-4">
-                        全球已有超過500篇學術論文研究該劇集，被翻譯成15種語言在全球發行。
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-white">
+                        <span class="lang-en">AI System Architect</span>
+                        <span class="lang-zh">AI系統架構師</span>
+                    </h3>
+                    <p class="text-sm leading-relaxed opacity-70 group-hover:text-gray-300">
+                        <span class="lang-en">Course Code: PTCTI-01<br>Master large-scale AI system design and optimization</span>
+                        <span class="lang-zh">課程代碼：PTCTI-01<br>掌握大規模AI系統設計與優化</span>
                     </p>
-                    <ul class="text-gray-400 space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>現代奇幻劇開創者：首部將僵尸題材與現代都市完美結合</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>角色塑造經典：創造了況天佑、馬小玲等影視史上的經典形象</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>文化融合價值：東方神話與西方吸血鬼文化的完美融合</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="recognition-card">
-                    <div class="text-orange-400 text-5xl mb-4">
-                        <i class="fas fa-video"></i>
+                    <div class="mt-4 pt-4 border-t border-current opacity-50 text-xs">
+                        <span class="lang-en">220+ Hours | ¥35,800</span>
+                        <span class="lang-zh">220+ 學時 | ¥35,800</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">全球影響力</h3>
-                    <p class="text-gray-400 mb-4">
-                        《我和僵尸有个约会》是華語影視文化的重要代表，在亞洲地區擁有廣泛影響力。
+                </div>
+
+                <div class="p-6 bg-white border border-gray-200 rounded-xl hover:bg-black hover:text-white transition-all duration-300 group">
+                    <div class="certification-level level-expert">
+                        <span class="lang-en">Cutting-edge Certification</span>
+                        <span class="lang-zh">前沿認證</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-white">
+                        <span class="lang-en">Web3 Content Architect</span>
+                        <span class="lang-zh">Web3內容架構師</span>
+                    </h3>
+                    <p class="text-sm leading-relaxed opacity-70 group-hover:text-gray-300">
+                        <span class="lang-en">Course Code: PTCII-13<br>Master blockchain content ecosystem design</span>
+                        <span class="lang-zh">課程代碼：PTCII-13<br>掌握區塊鏈內容生態設計</span>
                     </p>
-                    <ul class="text-gray-400 space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>中國大陸：在80後、90後群體中認知度達85%</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>台港澳：第二部最高收視達22點，創造亞視收視紀錄</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>日韓：影響了日本現代奇幻劇創作，韓國播放量超1000萬次</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="recognition-card">
-                    <div class="text-orange-400 text-5xl mb-4">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">文化價值潛力</h3>
-                    <p class="text-gray-400 mb-4">
-                        作為華語現代奇幻文化的重要載體，具有巨大的文化價值潛力：
-                    </p>
-                    <ul class="text-gray-400 space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>文化認同建構：增強全球華人的文化認同感</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>國際形象塑造：展示華語文化的創新力和想像力</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                            <span>文明對話橋樑：促進東西奇幻文化的交流與理解</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card p-6">
-                <h3 class="text-2xl font-bold mb-6 text-center">國際評價與文化認可</h3>
-                
-                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h4 class="text-xl font-bold mb-4 text-orange-400">權威機構評價</h4>
-                        <div class="space-y-4">
-                            <blockquote class="border-l-4 border-orange-400 pl-4">
-                                <p class="text-gray-300 italic">
-                                    "《我和僵尸有个约会》是香港电视史上最具创新精神的作品，其对东西方文化的融合堪称典范。"
-                                </p>
-                                <footer class="text-gray-400 mt-2">— 香港電影評論學會</footer>
-                            </blockquote>
-                            
-                            <blockquote class="border-l-4 border-orange-400 pl-4">
-                                <p class="text-gray-300 italic">
-                                    "该剧在华语影视史上的地位等同于《暮光之城》在西方奇幻影视中的地位，是理解现代华语奇幻文化的重要窗口。"
-                                </p>
-                                <footer class="text-gray-400 mt-2">— 台灣中華電視文化研究學會</footer>
-                            </blockquote>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h4 class="text-xl font-bold mb-4 text-orange-400">國際獎項與認可</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-trophy text-yellow-400 mt-1 mr-3"></i>
-                                <div>
-                                    <div class="font-semibold">2000年</div>
-                                    <div class="text-gray-400">亞洲電視節最佳創新劇集獎</div>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-trophy text-yellow-400 mt-1 mr-3"></i>
-                                <div>
-                                    <div class="font-semibold">2018年</div>
-                                    <div class="text-gray-400">入選"華語電視劇史上最具影響力的100部作品"</div>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-trophy text-yellow-400 mt-1 mr-3"></i>
-                                <div>
-                                    <div class="font-semibold">2023年</div>
-                                    <div class="text-gray-400">Disney+數字修復上架，獲得國際認可</div>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="mt-4 pt-4 border-t border-current opacity-50 text-xs">
+                        <span class="lang-en">300+ Hours | ¥108,000</span>
+                        <span class="lang-zh">300+ 學時 | ¥108,000</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NFT Collections Section -->
-    <section class="py-16" id="nft">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">NFT收藏系列</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    收藏獨一無二的《我和僵尸有个约会》數位文化資產，每件NFT都是您在AI電影宇宙中的專屬通行證。
+    <section id="partnership" class="py-24 px-6 md:px-8 max-w-[1920px] mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-200 pb-8 reveal-text">
+            <div>
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="lang-en">Global Partnership Center Program</span>
+                    <span class="lang-zh">全球合作中心計劃</span>
+                </h2>
+                <p class="text-gray-500">
+                    <span class="lang-en">Establish 100 partnership centers by 2030, training over 50,000 AI film professionals annually</span>
+                    <span class="lang-zh">到2030年建立100個合作中心，每年培訓超過50,000名AI影視專業人員</span>
                 </p>
             </div>
-            
-            <!-- Filter Pills -->
-            <div class="flex justify-center flex-wrap gap-4 mb-12">
-                <div class="filter-pill active" data-filter="all">全部系列</div>
-                <div class="filter-pill" data-filter="founder">創始贊助人</div>
-                <div class="filter-pill" data-filter="props">經典道具</div>
-                <div class="filter-pill" data-filter="characters">角色星座</div>
-                <div class="filter-pill" data-filter="synthesis">合成系列</div>
-                <div class="filter-pill" data-filter="ticket">觀影通行證</div>
+            <div class="text-right">
+                <div class="text-4xl font-bold font-mono tracking-tight">
+                    <span class="lang-en">3-tier Model</span>
+                    <span class="lang-zh">3級模式</span>
+                </div>
+                <div class="text-xs uppercase tracking-widest text-gray-400 mt-1">
+                    <span class="lang-en">Innovation+Flagship+Standard</span>
+                    <span class="lang-zh">創新+旗艦+標準</span>
+                </div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- 况天佑NFT -->
-                <div class="card overflow-hidden nft-item token-card" data-id="1" data-category="founder">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-crown text-5xl mb-2 text-orange-400"></i>
-                            <div>况天佑NFT</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">創始贊助人</span>
-                        </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-gray-200 mb-12 reveal-text">
+            <div class="border-r border-b lg:border-b-0 border-gray-200 p-10 hover:bg-black hover:text-white transition-colors duration-300 group">
+                <span class="text-xs font-mono opacity-50 mb-6 block">
+                    <span class="lang-en">01 / Innovation Center</span>
+                    <span class="lang-zh">01 / 創新中心</span>
+                </span>
+                <h3 class="text-2xl font-bold mb-2">
+                    <span class="lang-en">Large Comprehensive Base</span>
+                    <span class="lang-zh">大型綜合性基地</span>
+                </h3>
+                <p class="text-xs uppercase tracking-widest opacity-50 mb-8">
+                    <span class="lang-en">Advanced facilities, innovation education base in major global cities</span>
+                    <span class="lang-zh">先進設施，位於主要全球城市的創新教育基地</span>
+                </p>
+                <div class="text-5xl font-bold mb-4 font-serif italic">🏢</div>
+                <p class="text-xs opacity-50 leading-relaxed border-t border-current pt-4 group-hover:border-white/20">
+                    <span class="lang-en">Teaching area not less than 2,000 square meters, accommodating 200+ students, initial investment not less than $3 million</span>
+                    <span class="lang-zh">教學面積不少於2,000平方米，容納200+學生，初始投資不少於300萬美元</span>
+                </p>
+            </div>
+
+            <div class="border-r border-b lg:border-b-0 border-gray-200 p-10 hover:bg-black hover:text-white transition-colors duration-300 group">
+                <span class="text-xs font-mono opacity-50 mb-6 block">
+                    <span class="lang-en">02 / Flagship Center</span>
+                    <span class="lang-zh">02 / 旗艦中心</span>
+                </span>
+                <h3 class="text-2xl font-bold mb-2">
+                    <span class="lang-en">Regional Education Center</span>
+                    <span class="lang-zh">區域性教育中心</span>
+                </h3>
+                <p class="text-xs uppercase tracking-widest opacity-50 mb-8">
+                    <span class="lang-en">Regional hub serving multiple countries, providing core HKAIFA programs</span>
+                    <span class="lang-zh">服務多個國家的區域樞紐，提供核心HKAIFA項目</span>
+                </p>
+                <div class="text-5xl font-bold mb-4 font-serif italic">🚩</div>
+                <p class="text-xs opacity-50 leading-relaxed border-t border-current pt-4 group-hover:border-white/20">
+                    <span class="lang-en">Teaching area not less than 1,000 square meters, accommodating 100+ students, initial investment not less than $1.5 million</span>
+                    <span class="lang-zh">教學面積不少於1,000平方米，容納100+學生，初始投資不少於150萬美元</span>
+                </p>
+            </div>
+
+            <div class="p-10 hover:bg-black hover:text-white transition-colors duration-300 group">
+                <span class="text-xs font-mono opacity-50 mb-6 block">
+                    <span class="lang-en">03 / Standard Center</span>
+                    <span class="lang-zh">03 / 標準中心</span>
+                </span>
+                <h3 class="text-2xl font-bold mb-2">
+                    <span class="lang-en">Localized Education Base</span>
+                    <span class="lang-zh">本地化教育基地</span>
+                </h3>
+                <p class="text-xs uppercase tracking-widest opacity-50 mb-8">
+                    <span class="lang-en">Providing basic AI film training adapted to specific regional needs</span>
+                    <span class="lang-zh">提供適應特定區域需求的基本AI影視培訓</span>
+                </p>
+                <div class="text-5xl font-bold mb-4 font-serif italic">📚</div>
+                <p class="text-xs opacity-50 leading-relaxed border-t border-current pt-4 group-hover:border-white/20">
+                    <span class="lang-en">Teaching area not less than 500 square meters, accommodating 50+ students, initial investment not less than $800,000</span>
+                    <span class="lang-zh">教學面積不少於500平方米，容納50+學生，初始投資不少於80萬美元</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-text">
+            <div class="p-6 bg-white border border-gray-200 rounded-xl text-center">
+                <h4 class="text-lg font-bold mb-4 text-blue-600">
+                    <span class="lang-en">Innovation Center</span>
+                    <span class="lang-zh">創新中心</span>
+                </h4>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="lang-en">Initial Investment</span>
+                        <span class="lang-zh">初始投資</span>
+                        <span class="text-green-600">$3M</span>
                     </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">况天佑NFT</h3>
-                            <span class="text-sm text-gray-400">限量888枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            動態生成的60-90秒視頻藝術品，融合90年代港式美學與現代數字藝術，擁有DAO核心投票權。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥8,888</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">Annual Profit</span>
+                        <span class="lang-zh">年度利潤</span>
+                        <span class="text-green-600">$2.8-4.8M</span>
                     </div>
-                </div>
-                
-                <!-- 马小玲的驱魔手镯 -->
-                <div class="card overflow-hidden nft-item token-card" data-id="2" data-category="props">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-ring text-5xl mb-2 text-red-500"></i>
-                            <div>驱魔手镯</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">經典道具</span>
-                        </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">Payback Period</span>
+                        <span class="lang-zh">回收期</span>
+                        <span class="text-yellow-600">8-12 months</span>
                     </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">马小玲的驱魔手镯</h3>
-                            <span class="text-sm text-gray-400">限量8,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            3D互動場景，360度觀察體驗，馬小玲NFT合成必備材料，驅魔法器的神秘光效。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥888</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 沉复生的平安符 -->
-                <div class="card overflow-hidden nft-item token-card" data-id="3" data-category="props">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-scroll text-5xl mb-2 text-yellow-500"></i>
-                            <div>平安符</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">經典道具</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">沉复生的平安符</h3>
-                            <span class="text-sm text-gray-400">限量12,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            高保真3D物品動畫，古代符咒紋理模擬效果，父子情深主題的視覺表現。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥168</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 将臣的紫色血眼 -->
-                <div class="card overflow-hidden nft-item token-card" data-id="4" data-category="props">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-eye text-5xl mb-2 text-purple-500"></i>
-                            <div>紫色血眼</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">經典道具</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">将臣的紫色血眼</h3>
-                            <span class="text-sm text-gray-400">限量3,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            神秘紫光脈動效果，僵尸王威嚴的極致體現，恐怖美學的藝術表達。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥666</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 女娲的五色石 -->
-                <div class="card overflow-hidden nft-item token-card" data-id="5" data-category="props">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-gem text-5xl mb-2 text-blue-400"></i>
-                            <div>五色石</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">經典道具</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">女娲的五色石</h3>
-                            <span class="text-sm text-gray-400">限量8,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            五彩流光特效技術，創世神話的視覺呈現，人類命運主題展示。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥299</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 马小玲 -->
-                <div class="card overflow-hidden nft-item token-card" data-id="6" data-category="characters">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-female text-5xl mb-2 text-pink-400"></i>
-                            <div>马小玲</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">角色星座</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">马小玲</h3>
-                            <span class="text-sm text-gray-400">限量3,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            AI動態肖像技術，驅魔師主題表達，支持PFP頭像使用，個性化互動觀影功能。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥888</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 况天佑 -->
-                <div class="card overflow-hidden nft-item token-card" data-id="7" data-category="characters">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-user text-5xl mb-2 text-blue-400"></i>
-                            <div>况天佑</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">角色星座</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">况天佑</h3>
-                            <span class="text-sm text-gray-400">限量3,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            深情僵尸形象塑造，不老不死的孤獨感表現，情深義重的藝術呈現。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥888</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 马小玲NFT -->
-                <div class="card overflow-hidden nft-item token-card" data-id="8" data-category="synthesis">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-star text-5xl mb-2 text-silver"></i>
-                            <div>马小玲NFT</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">合成系列</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">马小玲NFT</h3>
-                            <span class="text-sm text-gray-400">理論上限30,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            由經典道具NFT + 角色星座NFT合成，每個都是獨一無二的30-60秒AI電影短片。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">合成獲得</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 观影通行证NFT -->
-                <div class="card overflow-hidden nft-item token-card" data-id="9" data-category="ticket">
-                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center relative">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-ticket-alt text-5xl mb-2 text-blue-400"></i>
-                            <div>觀影通行證</div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">大眾層級</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-xl font-bold">觀影通行證NFT</h3>
-                            <span class="text-sm text-gray-400">限量56,000枚</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 text-sm">
-                            120分鐘AI電影一次性觀看權，消耗型NFT，使用即消耗，未來續集優先購買權。
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-bold text-orange-400">¥88</span>
-                            <button class="btn-primary px-4 py-2 text-sm view-detail">
-                                查看詳情
-                            </button>
-                        </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">5-year ROI</span>
+                        <span class="lang-zh">5年ROI</span>
+                        <span class="text-purple-600">400-700%</span>
                     </div>
                 </div>
             </div>
             
-            <div class="mt-16">
-                <h3 class="text-2xl font-bold mb-8 text-center">NFT詳細分層說明</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="card p-8">
-                        <div class="flex items-start mb-6">
-                            <div class="bg-orange-600 text-white p-3 rounded-full mr-4">
-                                <i class="fas fa-crown text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-bold mb-2">况天佑NFT</h4>
-                                <p class="text-gray-400">
-                                    作為創始贊助人層級，持有者可參與DAO核心治理，擁有NFT形象完整商業使用權，
-                                    並在電影片頭獲得署名權。每個况天佑NFT都是動態生成的藝術品，融合90年代港式美學與現代數字藝術。
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-800 rounded-lg p-4">
-                            <h5 class="font-bold mb-2">持有者權益：</h5>
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                                    <span>參與項目重大決策投票，包括續集製作、IP授權等</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                                    <span>與主創團隊及文學顧問的私人交流會</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
-                                    <span>專屬虛擬觀影廳，可邀請最多15人同時觀看</span>
-                                </li>
-                            </ul>
-                        </div>
+            <div class="p-6 bg-white border border-gray-200 rounded-xl text-center">
+                <h4 class="text-lg font-bold mb-4 text-purple-600">
+                    <span class="lang-en">Flagship Center</span>
+                    <span class="lang-zh">旗艦中心</span>
+                </h4>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="lang-en">Initial Investment</span>
+                        <span class="lang-zh">初始投資</span>
+                        <span class="text-green-600">$1.5M</span>
                     </div>
-                    
-                    <div class="card p-8">
-                        <div class="flex items-start mb-6">
-                            <div class="bg-purple-600 text-white p-3 rounded-full mr-4">
-                                <i class="fas fa-gem text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-bold mb-2">經典道具 & 角色星座 NFT</h4>
-                                <p class="text-gray-400">
-                                    經典道具系列包含驅魔手鐲、平安符等經典道具，每個都是3D互動模型。
-                                    角色星座系列包含馬小玲、況天佑等經典角色，每個角色都有獨特的AI人格。
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-gray-800 rounded-lg p-3">
-                                <h5 class="font-bold mb-1">道具特色</h5>
-                                <ul class="text-sm text-gray-400">
-                                    <li>• 驅魔手鐲：360度互動體驗</li>
-                                    <li>• 平安符：古代符咒紋理模擬</li>
-                                    <li>• 五色石：五彩流光特效</li>
-                                </ul>
-                            </div>
-                            <div class="bg-gray-800 rounded-lg p-3">
-                                <h5 class="font-bold mb-1">角色功能</h5>
-                                <ul class="text-sm text-gray-400">
-                                    <li>• 與角色AI進行深度對話</li>
-                                    <li>• 以角色視角觀看電影</li>
-                                    <li>• 加入角色專屬粉絲社群</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">Annual Profit</span>
+                        <span class="lang-zh">年度利潤</span>
+                        <span class="text-green-600">$1.2-2.1M</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">Payback Period</span>
+                        <span class="lang-zh">回收期</span>
+                        <span class="text-yellow-600">9-15 months</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">5-year ROI</span>
+                        <span class="lang-zh">5年ROI</span>
+                        <span class="text-purple-600">300-600%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 bg-white border border-gray-200 rounded-xl text-center">
+                <h4 class="text-lg font-bold mb-4 text-green-600">
+                    <span class="lang-en">Standard Center</span>
+                    <span class="lang-zh">標準中心</span>
+                </h4>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="lang-en">Initial Investment</span>
+                        <span class="lang-zh">初始投資</span>
+                        <span class="text-green-600">$800K</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">Annual Profit</span>
+                        <span class="lang-zh">年度利潤</span>
+                        <span class="text-green-600">$600K-1.1M</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">Payback Period</span>
+                        <span class="lang-zh">回收期</span>
+                        <span class="text-yellow-600">10-16 months</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="lang-en">5-year ROI</span>
+                        <span class="lang-zh">5年ROI</span>
+                        <span class="text-purple-600">250-500%</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Technology Section -->
-    <section class="py-16 bg-gray-900" id="technology">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">AI原生電影技術</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    從劇本理解到視覺生成，全流程依靠人工智能技術完成，開創電影製作的全新範式。
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="mb-8">
-                        <h3 class="text-2xl font-bold mb-4">AI電影製作流程</h3>
-                        <p class="text-gray-400">
-                            我們採用先進的生成式AI技術，從劇本理解到最終成片，全流程依靠人工智能完成：
+    <section id="certification" class="py-24 px-6 md:px-8 max-w-[1920px] mx-auto bg-gray-50 border-t border-gray-200">
+        <div class="text-center mb-16 reveal-text">
+            <h2 class="text-4xl font-bold mb-6">
+                <span class="lang-en">Blockchain-based Certification System</span>
+                <span class="lang-zh">基於區塊鏈的認證體系</span>
+            </h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">
+                <span class="lang-en">Using blockchain technology to create tamper-proof, comprehensive, and verifiable education certificates, establishing new standards for professional certification</span>
+                <span class="lang-zh">利用區塊鏈技術創建防篡改、全面且可驗證的教育證書，為專業認證建立新標準</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+            <div class="reveal-text">
+                <h3 class="text-2xl font-bold mb-6">
+                    <span class="lang-en">Digital Certification Features</span>
+                    <span class="lang-zh">數字化認證特色</span>
+                </h3>
+                
+                <div class="space-y-6">
+                    <div class="p-6 bg-white border border-gray-200 rounded-lg">
+                        <div class="flex items-center mb-3">
+                            <div class="text-2xl mr-3">🔒</div>
+                            <h4 class="text-lg font-bold">
+                                <span class="lang-en">Blockchain Verification</span>
+                                <span class="lang-zh">區塊鏈驗證</span>
+                            </h4>
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            <span class="lang-en">All certificates use blockchain technology to ensure authenticity and tamper-proof verification</span>
+                            <span class="lang-zh">所有證書均採用區塊鏈技術，確保真實性和防篡改驗證</span>
                         </p>
                     </div>
                     
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="text-orange-400 text-xl mr-4">
-                                <i class="fas fa-paint-brush"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-bold mb-2">視覺生成技術</h4>
-                                <p class="text-gray-400">
-                                    使用Stable Diffusion XL、Midjourney V6生成高質量寫實與現代風格的靜態畫面，
-                                    並針對「90年代香港都市美學」風格訓練專屬模型。
-                                </p>
-                            </div>
+                    <div class="p-6 bg-white border border-gray-200 rounded-lg">
+                        <div class="flex items-center mb-3">
+                            <div class="text-2xl mr-3">🔄</div>
+                            <h4 class="text-lg font-bold">
+                                <span class="lang-en">Dynamic Updates</span>
+                                <span class="lang-zh">動態更新</span>
+                            </h4>
                         </div>
-                        
-                        <div class="flex items-start">
-                            <div class="text-orange-400 text-xl mr-4">
-                                <i class="fas fa-film"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-bold mb-2">視頻生成與動畫</h4>
-                                <p class="text-gray-400">
-                                    使用Runway ML Gen-2和Pika Labs實現靜態圖像到動態視頻的轉換，
-                                    並針對現代服飾、都市建築動態效果等特殊場景開發專有算法。
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="text-orange-400 text-xl mr-4">
-                                <i class="fas fa-microphone-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-bold mb-2">語音與音頻</h4>
-                                <p class="text-gray-400">
-                                    使用ElevenLabs生成高質量的多語言配音，
-                                    並合成現代音樂與環境音效。
-                                </p>
-                            </div>
-                        </div>
+                        <p class="text-gray-600 text-sm">
+                            <span class="lang-en">Certificate records continuously update learning and skill development, maintaining timeliness and relevance</span>
+                            <span class="lang-zh">證書記錄持續學習和技能更新情況，保持時效性和相關性</span>
+                        </p>
                     </div>
-                </div>
-                
-                <div class="relative">
-                    <div class="bg-gray-800 w-full h-96 rounded-xl flex items-center justify-center">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-brain text-7xl mb-4"></i>
-                            <div class="text-xl">AI技術展示</div>
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-6 -left-6 bg-orange-600 text-white p-4 rounded-xl">
-                        <div class="text-sm">無限創意</div>
-                        <div class="text-xl font-bold">完美呈現奇幻世界</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card p-6">
-                    <div class="text-orange-400 text-4xl mb-4">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">想像力無限</h3>
-                    <p class="text-gray-400">
-                        傳統電影難以呈現的現代奇幻場景、超自然現象和文學意境，AI可以輕鬆實現，完美還原文學作品的想像邊界。
-                    </p>
-                </div>
-                
-                <div class="card p-6">
-                    <div class="text-orange-400 text-4xl mb-4">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">藝術創作效率</h3>
-                    <p class="text-gray-400">
-                        大幅壓縮傳統電影製作週期，讓藝術家能夠更專注於核心創意表達和文化內涵的呈現。
-                    </p>
-                </div>
-                
-                <div class="card p-6">
-                    <div class="text-orange-400 text-4xl mb-4">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">多語言全球化</h3>
-                    <p class="text-gray-400">
-                        一次核心製作，即可同步輸出多種語言版本，並根據不同地區的文化審美微調視覺風格和配樂。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Viewing Experience Section -->
-    <section class="py-16" id="experience">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">觀影體驗創新</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    基於NFT的代幣門控觀影系統，提供個性化的沉浸式觀影體驗，重新定義電影觀看方式。
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
-                <div>
-                    <h3 class="text-2xl font-bold mb-6">多重觀影模式</h3>
                     
-                    <div class="space-y-6">
-                        <div class="card p-6">
-                            <div class="flex items-start">
-                                <div class="text-orange-400 text-2xl mr-4 mt-1">
-                                    <i class="fas fa-play-circle"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-bold mb-2">標準觀影模式</h4>
-                                    <p class="text-gray-400">
-                                        4K超高清畫質，7.1環繞聲，多線性敘事結構，支持情節跳轉，多語言字幕和配音選擇。
-                                    </p>
-                                </div>
-                            </div>
+                    <div class="p-6 bg-white border border-gray-200 rounded-lg">
+                        <div class="flex items-center mb-3">
+                            <div class="text-2xl mr-3">🌐</div>
+                            <h4 class="text-lg font-bold">
+                                <span class="lang-en">Global Mutual Recognition</span>
+                                <span class="lang-zh">全球互認</span>
+                            </h4>
                         </div>
-                        
-                        <div class="card p-6">
-                            <div class="flex items-start">
-                                <div class="text-orange-400 text-2xl mr-4 mt-1">
-                                    <i class="fas fa-user-circle"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-bold mb-2">角色視角模式</h4>
-                                    <p class="text-gray-400">
-                                        角色星座NFT持有者專享，以持有的角色視角體驗劇情，AI實時生成角色內心獨白。
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card p-6">
-                            <div class="flex items-start">
-                                <div class="text-orange-400 text-2xl mr-4 mt-1">
-                                    <i class="fas fa-headset"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-bold mb-2">沉浸式VR模式</h4>
-                                    <p class="text-gray-400">
-                                        VR頭顯支持，360度沉浸體驗，可在90年代香港場景中自由行走，與AI角色進行實時互動。
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="bg-gray-800 w-full h-96 rounded-xl flex items-center justify-center">
-                        <div class="text-gray-400 text-center">
-                            <i class="fas fa-tv text-7xl mb-4"></i>
-                            <div class="text-xl">沉浸式觀影體驗</div>
-                        </div>
+                        <p class="text-gray-600 text-sm">
+                            <span class="lang-en">Establish mutual recognition mechanisms with internationally renowned institutions, global certification standards</span>
+                            <span class="lang-zh">與國際知名機構建立互認機制，全球通用認證標準</span>
+                        </p>
                     </div>
                 </div>
             </div>
             
-            <div class="card p-8">
-                <h3 class="text-2xl font-bold mb-6 text-center">觀影權的價值</h3>
+            <div class="reveal-text">
+                <h3 class="text-2xl font-bold mb-6">
+                    <span class="lang-en">Certificate System</span>
+                    <span class="lang-zh">證書體系</span>
+                </h3>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-orange-400 mb-2">800萬</div>
-                        <div class="text-gray-400">全球潛在觀影用戶</div>
-                        <div class="text-sm text-gray-500 mt-2">基於《我和僵尸有个约会》全球認知度</div>
+                <div class="space-y-4">
+                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                        <div class="certification-level level-primary">
+                            <span class="lang-en">Industry Certification</span>
+                            <span class="lang-zh">行業認證</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">
+                            <span class="lang-en">Industry Talent Certification Certificate</span>
+                            <span class="lang-zh">行業人才認證證書</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 mb-2">
+                            <span class="lang-en">HKAIFA Industry Talent Certification Certificate (Primary/Intermediate/Advanced)</span>
+                            <span class="lang-zh">HKAIFA行業人才認證證書（初級/中級/高級）</span>
+                        </p>
+                        <div class="text-xs text-gray-400">
+                            <span class="lang-en">Certificate Number: HKAIFA-ITC-Level-Year-Serial<br>Validity: 3 years (renewable through continuing education)</span>
+                            <span class="lang-zh">證書編號：HKAIFA-ITC-級別-年份-序號<br>有效期：3年（可通過繼續教育延續）</span>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-orange-400 mb-2">168,000</div>
-                        <div class="text-gray-400">NFT總供應量</div>
-                        <div class="text-sm text-gray-500 mt-2">提供觀影權的NFT總數</div>
+                    
+                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                        <div class="certification-level level-intermediate">
+                            <span class="lang-en">Professional Certification</span>
+                            <span class="lang-zh">專業認證</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">
+                            <span class="lang-en">Professional Talent Certification Certificate</span>
+                            <span class="lang-zh">職業人才認證證書</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 mb-2">
+                            <span class="lang-en">HKAIFA Professional Talent Certification Certificate (68 professional directions)</span>
+                            <span class="lang-zh">HKAIFA專業人才認證證書（68個專業方向）</span>
+                        </p>
+                        <div class="text-xs text-gray-400">
+                            <span class="lang-en">Certificate Number: HKAIFA-PTC-Field Code-Professional Code-Year-Serial<br>Validity: 5 years (high-demand majors), 3 years (general majors)</span>
+                            <span class="lang-zh">證書編號：HKAIFA-PTC-領域代碼-專業代碼-年份-序號<br>有效期：5年（高需求專業），3年（一般專業）</span>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-orange-400 mb-2">1:48</div>
-                        <div class="text-gray-400">供需比例</div>
-                        <div class="text-sm text-gray-500 mt-2">48個潛在用戶競爭1個觀影權</div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 bg-gray-800 p-6 rounded-lg">
-                    <h4 class="text-xl font-bold mb-4">價值構成</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-ticket-alt text-orange-400 mt-1 mr-3"></i>
-                                <span class="text-gray-400">基礎價值：觀影權本身價值</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-medal text-orange-400 mt-1 mr-3"></i>
-                                <span class="text-gray-400">收藏價值：首部AI原生現代奇幻電影的歷史意義</span>
-                            </li>
-                        </ul>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-users text-orange-400 mt-1 mr-3"></i>
-                                <span class="text-gray-400">社群價值：高質量文化愛好者社區的準入權</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-gift text-orange-400 mt-1 mr-3"></i>
-                                <span class="text-gray-400">未來權益：續集優先觀看、衍生品優先購買等</span>
-                            </li>
-                        </ul>
+                    
+                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                        <div class="certification-level level-expert">
+                            <span class="lang-en">Master Class</span>
+                            <span class="lang-zh">大師班</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">
+                            <span class="lang-en">Master Class Completion Certificate</span>
+                            <span class="lang-zh">大師班結業證書</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 mb-2">
+                            <span class="lang-en">HKAIFA International Master Class Completion Certificate</span>
+                            <span class="lang-zh">HKAIFA國際大師班結業證書</span>
+                        </p>
+                        <div class="text-xs text-gray-400">
+                            <span class="lang-en">Certificate Number: HKAIFA-MC-Topic Code-Year-Serial<br>Permanently valid, specifying specific master and topic</span>
+                            <span class="lang-zh">證書編號：HKAIFA-MC-主題代碼-年份-序號<br>永久有效，標注具體大師與主題</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Collections -->
-    <section class="py-16" id="collections">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">精選NFT收藏</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    探索《我和僵尸有个约会》宇宙中最具代表性的角色與場景，收藏屬於您的數位文化資產。
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- 马小玲情缘录 -->
-                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="10">
-                    <div class="relative">
-                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
-                            <div class="text-gray-400 text-center">
-                                <i class="fas fa-heart text-5xl mb-2 text-pink-400"></i>
-                                <div>马小玲情缘录</div>
-                            </div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">特別版</span>
-                        </div>
-                        <div class="nft-card-hover">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-bold">马小玲情缘录</h3>
-                                <span class="text-sm font-medium">限量版</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                    <span class="text-sm">僵尸宇宙</span>
-                                </div>
-                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
-                                    查看詳情
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-bold">马小玲情缘录</h3>
-                            <div class="text-sm font-medium">¥1,999</div>
-                        </div>
-                        <div class="text-sm text-gray-400">
-                            展現驅魔師與僵尸的跨越種族情緣，AI動態呈現現代奇幻中的浪漫與掙扎。
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 况天佑永恒之约 -->
-                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="11">
-                    <div class="relative">
-                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
-                            <div class="text-gray-400 text-center">
-                                <i class="fas fa-infinity text-5xl mb-2 text-blue-400"></i>
-                                <div>永恒之约</div>
-                            </div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">藝術收藏</span>
-                        </div>
-                        <div class="nft-card-hover">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-bold">况天佑永恒之约</h3>
-                                <span class="text-sm font-medium">珍藏版</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                    <span class="text-sm">僵尸宇宙</span>
-                                </div>
-                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
-                                    查看詳情
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-bold">况天佑永恒之约</h3>
-                            <div class="text-sm font-medium">¥1,299</div>
-                        </div>
-                        <div class="text-sm text-gray-400">
-                            深情僵尸的不老不死之約，展現現代奇幻文學中的愛情與永恆主題。
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 90年代香港夜景 -->
-                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="12">
-                    <div class="relative">
-                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
-                            <div class="text-gray-400 text-center">
-                                <i class="fas fa-city text-5xl mb-2 text-yellow-400"></i>
-                                <div>香港夜景</div>
-                            </div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">場景系列</span>
-                        </div>
-                        <div class="nft-card-hover">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-bold">90年代香港夜景</h3>
-                                <span class="text-sm font-medium">城市藝術</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                    <span class="text-sm">僵尸宇宙</span>
-                                </div>
-                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
-                                    查看詳情
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-bold">90年代香港夜景</h3>
-                            <div class="text-sm font-medium">¥899</div>
-                        </div>
-                        <div class="text-sm text-gray-400">
-                            AI重現90年代香港夜色，霓虹閃爍，展現現代奇幻中神秘莫測的經典都市場景。
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 现代奇幻典藏 -->
-                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="13">
-                    <div class="relative">
-                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
-                            <div class="text-gray-400 text-center">
-                                <i class="fas fa-scroll text-5xl mb-2 text-amber-400"></i>
-                                <div>现代奇幻典藏</div>
-                            </div>
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span class="token-badge">文學收藏</span>
-                        </div>
-                        <div class="nft-card-hover">
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-bold">现代奇幻典藏</h3>
-                                <span class="text-sm font-medium">文學精品</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                    <span class="text-sm">僵尸宇宙</span>
-                                </div>
-                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
-                                    查看詳情
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="font-bold">现代奇幻典藏</h3>
-                            <div class="text-sm font-medium">¥699</div>
-                        </div>
-                        <div class="text-sm text-gray-400">
-                            收錄《我和僵尸有个约会》中的經典場景，AI藝術演繹，展現現代奇幻文化的深邃內涵。
-                        </div>
-                    </div>
+    <section id="services" class="py-24 px-6 md:px-8 max-w-[1920px] mx-auto">
+        <div class="text-center mb-16 reveal-text">
+            <h2 class="text-4xl font-bold mb-6">
+                <span class="lang-en">Comprehensive Support Service System</span>
+                <span class="lang-zh">全面支持服務體系</span>
+            </h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">
+                <span class="lang-en">From learning support to employment services, from entrepreneurship incubation to international development, providing all-round support</span>
+                <span class="lang-zh">從學習支持到就業服務，從創業孵化到國際發展，提供全方位支持</span>
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20 reveal-text">
+            <div class="p-6 bg-white border border-gray-200 rounded-xl text-center hover:bg-black hover:text-white transition-all duration-300 group">
+                <div class="text-4xl mb-4">💻</div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-white">
+                    <span class="lang-en">Technical Support</span>
+                    <span class="lang-zh">技術支持</span>
+                </h3>
+                <div class="space-y-2 text-sm opacity-70 group-hover:text-gray-300">
+                    <div>• <span class="lang-en">24/7 AI Learning Assistant</span><span class="lang-zh">24/7 AI學習助手</span></div>
+                    <div>• <span class="lang-en">Dedicated Industry Mentors</span><span class="lang-zh">專屬行業導師</span></div>
+                    <div>• <span class="lang-en">Technical Support Hotline</span><span class="lang-zh">技術支持熱線</span></div>
+                    <div>• <span class="lang-en">One-on-One Remote Guidance</span><span class="lang-zh">一對一遠程指導</span></div>
                 </div>
             </div>
             
-            <div class="text-center mt-12">
-                <a href="#nft" class="btn-primary px-8 py-3 rounded-full font-medium">
-                    瀏覽全部NFT收藏
+            <div class="p-6 bg-white border border-gray-200 rounded-xl text-center hover:bg-black hover:text-white transition-all duration-300 group">
+                <div class="text-4xl mb-4">💼</div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-white">
+                    <span class="lang-en">Employment Services</span>
+                    <span class="lang-zh">就業服務</span>
+                </h3>
+                <div class="space-y-2 text-sm opacity-70 group-hover:text-gray-300">
+                    <div>• <span class="lang-en">Professional Resume Optimization</span><span class="lang-zh">專業簡歷優化</span></div>
+                    <div>• <span class="lang-en">Mock Interview Training</span><span class="lang-zh">模擬面試培訓</span></div>
+                    <div>• <span class="lang-en">Corporate Recruitment Matching</span><span class="lang-zh">企業招聘對接</span></div>
+                    <div>• <span class="lang-en">Personalized Career Planning</span><span class="lang-zh">個性化職業規劃</span></div>
+                </div>
+            </div>
+            
+            <div class="p-6 bg-white border border-gray-200 rounded-xl text-center hover:bg-black hover:text-white transition-all duration-300 group">
+                <div class="text-4xl mb-4">🚀</div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-white">
+                    <span class="lang-en">Entrepreneurship Support</span>
+                    <span class="lang-zh">創業支持</span>
+                </h3>
+                <div class="space-y-2 text-sm opacity-70 group-hover:text-gray-300">
+                    <div>• <span class="lang-en">Project Incubation Support</span><span class="lang-zh">項目孵化支持</span></div>
+                    <div>• <span class="lang-en">Investment Matching Meetings</span><span class="lang-zh">投資對接會</span></div>
+                    <div>• <span class="lang-en">Resource Integration Assistance</span><span class="lang-zh">資源整合協助</span></div>
+                    <div>• <span class="lang-en">Successful Entrepreneur Mentors</span><span class="lang-zh">成功企業家導師</span></div>
+                </div>
+            </div>
+            
+            <div class="p-6 bg-white border border-gray-200 rounded-xl text-center hover:bg-black hover:text-white transition-all duration-300 group">
+                <div class="text-4xl mb-4">📚</div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-white">
+                    <span class="lang-en">Learning Resources</span>
+                    <span class="lang-zh">學習資源</span>
+                </h3>
+                <div class="space-y-2 text-sm opacity-70 group-hover:text-gray-300">
+                    <div>• <span class="lang-en">24/7 Online Learning Platform</span><span class="lang-zh">24/7在線學習平台</span></div>
+                    <div>• <span class="lang-en">Rich Resource Library</span><span class="lang-zh">豐富資源庫</span></div>
+                    <div>• <span class="lang-en">Community Exchange Forum</span><span class="lang-zh">社區交流論壇</span></div>
+                    <div>• <span class="lang-en">Regular Content Updates</span><span class="lang-zh">定期內容更新</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="apply" class="py-24 px-6 md:px-8 max-w-[1920px] mx-auto bg-gray-50 border-t border-gray-200">
+        <div class="max-w-3xl mx-auto text-center reveal-text">
+            <h2 class="text-4xl font-bold mb-6">
+                <span class="lang-en">Shape the Future of AI Film</span>
+                <span class="lang-zh">塑造AI電影的未來</span>
+            </h2>
+            <p class="text-xl text-gray-500 mb-8">
+                <span class="lang-en">Join HKAIFA and become part of the global revolution in AI film education. From beginners to professionals, from career transitions to entrepreneurship incubation, we have the perfect program for you.</span>
+                <span class="lang-zh">加入HKAIFA，成為AI影視教育全球革命的一部分。從初學者到專業人士，從職業轉換到創業孵化，我們都有完美的項目適合你。</span>
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="https://www.hkaifa.academy/#/home" class="bg-black text-white px-8 py-4 rounded-full font-bold academy-btn text-center inline-flex items-center justify-center">
+                    <span class="lang-en">Student Application</span>
+                    <span class="lang-zh">學生申請</span>
+                </a>
+                <a href="#partnership-application" class="border border-black text-black px-8 py-4 rounded-full font-bold text-center inline-flex items-center justify-center hover:bg-black hover:text-white transition-all">
+                    <span class="lang-en">Partnership Application</span>
+                    <span class="lang-zh">合作申請</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- NFT Detail Modal -->
-    <div id="nft-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="nft-detail-container">
-                <div class="nft-detail-image">
-                    <div class="bg-gray-800 w-full h-full flex items-center justify-center">
-                        <div class="text-gray-400 text-center p-8">
-                            <i class="fas fa-crown text-7xl mb-4 text-orange-400" id="modal-icon"></i>
-                            <div class="text-2xl" id="modal-title">况天佑NFT</div>
-                            <div class="mt-4" id="modal-type">創始贊助人層級</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nft-detail-info">
-                    <h2 class="text-3xl font-bold mb-4" id="modal-name">况天佑NFT</h2>
-                    <div class="flex items-center mb-6">
-                        <span class="token-badge" id="modal-category">創始贊助人</span>
-                        <span class="ml-4 text-gray-400" id="modal-count">限量: 888枚</span>
-                    </div>
-                    
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-3">作品描述</h3>
-                        <p class="text-gray-400" id="modal-description">
-                            况天佑NFT是創始贊助人層級的頂級收藏品，每個都是動態生成的60-90秒視頻藝術品，
-                            融合90年代港式美學與現代數字藝術。持有者可參與DAO核心治理，擁有NFT形象完整商業使用權，
-                            並在電影片頭獲得署名權。
-                        </p>
-                    </div>
-                    
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-3">特色功能</h3>
-                        <div id="modal-features">
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-start">
-                                    <i class="fas fa-vote-yea text-orange-400 mt-1 mr-2"></i>
-                                    <span>參與項目重大決策投票，包括續集製作、IP授權等</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-handshake text-orange-400 mt-1 mr-2"></i>
-                                    <span>與主創團隊及文學顧問的私人交流會</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-tv text-orange-400 mt-1 mr-2"></i>
-                                    <span>專屬虛擬觀影廳，可邀請最多15人同時觀看</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-palette text-orange-400 mt-1 mr-2"></i>
-                                    <span>可要求AI生成個人專屬的《我和僵尸有个约会》角色形象</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <div class="text-gray-400 text-sm">當前價格</div>
-                            <div class="text-2xl font-bold" id="modal-price">¥8,888</div>
-                        </div>
-                        <button class="btn-primary px-6 py-3 rounded-lg font-medium">
-                            立即收藏
-                        </button>
-                    </div>
-                    
-                    <div class="border-t border-gray-700 pt-4">
-                        <div class="text-gray-400 text-sm">區塊鏈</div>
-                        <div class="flex items-center">
-                            <i class="fab fa-ethereum text-gray-400 mr-2"></i>
-                            <span>以太坊主網 (ERC-721)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Community Section -->
-    <section class="py-16 bg-gray-900" id="community">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">加入僵尸AI宇宙社群</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    與全球奇幻影視愛好者、AI技術探索者和文化傳承者一起，共同見證現代奇幻的數位新生。
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="card p-8 mb-8">
-                        <h3 class="text-2xl font-bold mb-4">獨特互動體驗</h3>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <div class="text-orange-400 mr-3 mt-1">
-                                    <i class="fas fa-comments"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">AI角色對話系統</h4>
-                                    <p class="text-sm text-gray-400">
-                                        持有「角色星座」NFT的用戶，可與基於大語言模型訓練的、擁有完整人設和記憶的角色AI進行深度對話。
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="text-orange-400 mr-3 mt-1">
-                                    <i class="fas fa-vr-cardboard"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">角色視角觀影</h4>
-                                    <p class="text-sm text-gray-400">
-                                        持有者可選擇以該角色視角體驗電影，AI將生成專屬的內心獨白，提供沉浸式敘事體驗。
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="text-orange-400 mr-3 mt-1">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">角色社群准入</h4>
-                                    <p class="text-sm text-gray-400">
-                                        加入對應角色的專屬粉絲社群，與同好交流角色解讀與文化探討。
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flex space-x-6 justify-center">
-                        <a href="#" class="text-3xl text-gray-400 hover:text-orange-400 transition">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                        <a href="#" class="text-3xl text-gray-400 hover:text-orange-400 transition">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <a href="#" class="text-3xl text-gray-400 hover:text-orange-400 transition">
-                            <i class="fab fa-weibo"></i>
-                        </a>
-                        <a href="#" class="text-3xl text-gray-400 hover:text-orange-400 transition">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-24 pb-8 px-6 md:px-8">
+        <div class="max-w-[1920px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-t border-white/20 pt-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="text-2xl font-bold block mb-4">HKAIFA</a>
+                    <p class="text-gray-400 text-sm max-w-xs leading-relaxed">
+                        <span class="lang-en">World's first AI-native film education institution, connecting technology and creativity, shaping the future of cinema.</span>
+                        <span class="lang-zh">全球首個AI原生影視教育機構，連接技術與創意，塑造電影的未來。</span>
+                    </p>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="card p-6">
-                        <div class="text-orange-400 text-4xl mb-4">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">教育與文化傳承</h3>
-                        <p class="text-gray-400">
-                            與全球大學合作，將NFT作為學習現代華語文化和語言的沉浸式教具。
-                        </p>
-                    </div>
-                    
-                    <div class="card p-6">
-                        <div class="text-orange-400 text-4xl mb-4">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">元宇宙整合</h3>
-                        <p class="text-gray-400">
-                            構建持續擴展的「僵尸元宇宙」，NFT持有者可在其中擁有虛擬身份、道具和土地。
-                        </p>
-                    </div>
-                    
-                    <div class="card p-6">
-                        <div class="text-orange-400 text-4xl mb-4">
-                            <i class="fas fa-theater-masks"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">虛擬戲劇體驗</h3>
-                        <p class="text-gray-400">
-                            在元宇宙中參與經典場景重現，與角色互動，體驗90年代香港的真實生活場景。
-                        </p>
-                    </div>
-                    
-                    <div class="card p-6">
-                        <div class="text-orange-400 text-4xl mb-4">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">創作工坊</h3>
-                        <p class="text-gray-400">
-                            參與AI創作工作坊，學習如何用現代技術重新詮釋現代奇幻文學。
-                        </p>
-                    </div>
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider mb-4 text-gray-500">
+                        <span class="lang-en">Education System</span>
+                        <span class="lang-zh">教育體系</span>
+                    </h4>
+                    <ul class="space-y-3 text-sm font-medium text-gray-300">
+                        <li><a href="#curriculum" class="hover:text-white">
+                            <span class="lang-en">Four-tier Curriculum</span>
+                            <span class="lang-zh">四層課程架構</span>
+                        </a></li>
+                        <li><a href="#certification" class="hover:text-white">
+                            <span class="lang-en">Blockchain Certification</span>
+                            <span class="lang-zh">區塊鏈認證</span>
+                        </a></li>
+                        <li><a href="#services" class="hover:text-white">
+                            <span class="lang-en">Support Services</span>
+                            <span class="lang-zh">支持服務</span>
+                        </a></li>
+                        <li><a href="#apply" class="hover:text-white">
+                            <span class="lang-en">Apply Now</span>
+                            <span class="lang-zh">立即申請</span>
+                        </a></li>
+                    </ul>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Newsletter Section -->
-    <section class="py-16 bg-gradient-to-r from-red-900 to-purple-900">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">加入AI電影革命</h2>
-                <p class="text-xl text-gray-200 mb-8">
-                    訂閱我們的通訊，獲取獨家NFT發售資訊、收藏品搶先體驗，以及AI生成電影資產的前沿洞察。
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                    <input type="email" placeholder="輸入您的電子郵件" class="bg-white bg-opacity-10 border border-gray-700 text-white rounded-full px-6 py-3 w-full focus:outline-none focus:ring-2 focus:ring-orange-400">
-                    <button class="btn-primary px-8 py-3 rounded-full font-medium">
-                        訂閱
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <a href="#" class="liaozhai-logo mb-4">
-                        <div class="logo-font">我和僵尸有个约会</div>
-                        <div class="logo-sub">AI原生電影宇宙</div>
-                    </a>
-                    <p class="text-gray-400 mb-4">
-                        透過AI與區塊鏈技術，重塑25年現代奇幻經典。
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-orange-400"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-orange-400"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-orange-400"><i class="fab fa-discord"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-orange-400"><i class="fab fa-weibo"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-orange-400"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">平台</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#about" class="text-gray-400 hover:text-orange-400">關於項目</a></li>
-                        <li><a href="#global" class="text-gray-400 hover:text-orange-400">文化價值</a></li>
-                        <li><a href="#nft" class="text-gray-400 hover:text-orange-400">NFT系列</a></li>
-                        <li><a href="#technology" class="text-gray-400 hover:text-orange-400">AI技術</a></li>
-                        <li><a href="#collections" class="text-gray-400 hover:text-orange-400">精選收藏</a></li>
-                        <li><a href="#experience" class="text-gray-400 hover:text-orange-400">觀影體驗</a></li>
-                        <li><a href="#community" class="text-gray-400 hover:text-orange-400">社群</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">資源</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">項目介紹</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">使用指南</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">常見問題</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">技術支援</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">文化背景</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">學術研究</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">法律聲明</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">服務條款</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">隱私政策</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">版權聲明</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">聯絡我們</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-orange-400">收藏指南</a></li>
+                    <h4 class="text-xs font-bold uppercase tracking-wider mb-4 text-gray-500">
+                        <span class="lang-en">Partnership Network</span>
+                        <span class="lang-zh">合作網絡</span>
+                    </h4>
+                    <ul class="space-y-3 text-sm font-medium text-gray-300">
+                        <li><a href="#partnership" class="hover:text-white">
+                            <span class="lang-en">Partnership Centers</span>
+                            <span class="lang-zh">合作中心</span>
+                        </a></li>
+                        <li><a href="#global" class="hover:text-white">
+                            <span class="lang-en">Global Layout</span>
+                            <span class="lang-zh">全球布局</span>
+                        </a></li>
+                        <li><a href="#investment" class="hover:text-white">
+                            <span class="lang-en">Investment Opportunities</span>
+                            <span class="lang-zh">投資機會</span>
+                        </a></li>
+                        <li><a href="#contact" class="hover:text-white">
+                            <span class="lang-en">Contact Us</span>
+                            <span class="lang-zh">聯繫我們</span>
+                        </a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
-                <p>© 2025 《我和僵尸有个约会》AI原生電影項目。保留所有權利。</p>
-                <p class="mt-2">本網站展示的NFT為數位收藏品，純屬文化藝術收藏用途。請謹慎收藏，了解相關特性。</p>
+            
+            <div class="mt-20 flex justify-between items-end text-[10px] uppercase text-gray-500 font-mono">
+                <p>&copy; 2025 HKAIFA. All Rights Reserved.</p>
+                <p>Designed with Awwwards Aesthetics</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // NFT data with detailed information
-        const nftData = {
-            1: {
-                name: "况天佑NFT",
-                type: "創始贊助人層級",
-                category: "頂級收藏",
-                count: "限量888枚",
-                price: "¥8,888",
-                icon: "fas fa-crown",
-                description: "動態生成的60-90秒視頻藝術品，融合90年代港式美學與現代數字藝術。持有者可參與DAO核心治理，擁有NFT形象完整商業使用權，並在電影片頭獲得署名權。",
-                features: [
-                    "參與項目重大決策投票，包括續集製作、IP授權等",
-                    "與主創團隊及文學顧問的私人交流會",
-                    "專屬虛擬觀影廳，可邀請最多15人同時觀看",
-                    "可要求AI生成個人專屬的《我和僵尸有个约会》角色形象"
-                ]
-            },
-            2: {
-                name: "马小玲的驱魔手镯",
-                type: "經典道具系列",
-                category: "互動道具",
-                count: "限量8,000枚",
-                price: "¥888",
-                icon: "fas fa-ring",
-                description: "3D互動場景，360度觀察體驗，馬小玲NFT合成必備材料。驅魔法器的神秘光效，展現劇中驅魔師的強大力量。",
-                features: [
-                    "360度3D互動觀察體驗",
-                    "馬小玲NFT合成必備材料",
-                    "驅魔文化主題的象徵",
-                    "支持跨平台展示和使用"
-                ]
-            },
-            3: {
-                name: "沉复生的平安符",
-                type: "經典道具系列",
-                category: "互動道具",
-                count: "限量12,000枚",
-                price: "¥168",
-                icon: "fas fa-scroll",
-                description: "高保真3D物品動畫，古代符咒紋理模擬效果，父子情深主題的視覺表現。展現劇中溫馨感人的親情故事。",
-                features: [
-                    "高保真3D物理模擬效果",
-                    "古代符咒細節還原",
-                    "親情文化主題表現",
-                    "動態光影效果展示"
-                ]
-            },
-            4: {
-                name: "将臣的紫色血眼",
-                type: "經典道具系列",
-                category: "神秘物品",
-                count: "限量3,000枚",
-                price: "¥666",
-                icon: "fas fa-eye",
-                description: "神秘紫光脈動效果，僵尸王威嚴的極致體現，恐怖美學的藝術表達。代表劇中僵尸王的強大力量和神秘感。",
-                features: [
-                    "神秘紫光脈動特效",
-                    "僵尸王威嚴場景還原",
-                    "恐怖美學的藝術表現",
-                    "力量與神秘的象徵"
-                ]
-            },
-            5: {
-                name: "女娲的五色石",
-                type: "經典道具系列",
-                category: "神秘物品",
-                count: "限量8,000枚",
-                price: "¥299",
-                icon: "fas fa-gem",
-                description: "五彩流光特效技術，創世神話的視覺呈現，人類命運主題展示。展現劇中創世女神的神聖力量。",
-                features: [
-                    "五彩流光動態特效",
-                    "創世神話場景還原",
-                    "人類命運主題表達",
-                    "神聖力量的藝術象徵"
-                ]
-            },
-            6: {
-                name: "马小玲",
-                type: "角色星座系列",
-                category: "主角收藏",
-                count: "限量3,000枚",
-                price: "¥888",
-                icon: "fas fa-female",
-                description: "AI動態肖像技術，驅魔師主題表達，支持PFP頭像使用。個性化互動觀影功能，可與角色AI進行深度對話。",
-                features: [
-                    "AI動態肖像生成技術",
-                    "支持PFP頭像使用",
-                    "與角色AI深度對話功能",
-                    "角色視角觀影體驗"
-                ]
-            },
-            7: {
-                name: "况天佑",
-                type: "角色星座系列",
-                category: "主角收藏",
-                count: "限量3,000枚",
-                price: "¥888",
-                icon: "fas fa-user",
-                description: "深情僵尸形象塑造，不老不死的孤獨感表現，情深義重的藝術呈現。具備角色視角觀影功能，重新詮釋經典僵尸角色。",
-                features: [
-                    "深情僵尸的角色特質",
-                    "不老不死的主題表達",
-                    "情深義重的藝術呈現",
-                    "角色專屬社群準入"
-                ]
-            },
-            8: {
-                name: "马小玲NFT",
-                type: "合成系列",
-                category: "獨特藝術",
-                count: "理論上限30,000枚",
-                price: "合成獲得",
-                icon: "fas fa-star",
-                description: "由經典道具NFT + 角色星座NFT合成，每個都是獨一無二的30-60秒AI電影短片。通過合成機制減少總供應量，具有獨特價值。",
-                features: [
-                    "獨一無二的AI電影短片",
-                    "合成過程永久鎖定原NFT",
-                    "更高級別的社群權限",
-                    "藝術收藏價值提升"
-                ]
-            },
-            9: {
-                name: "觀影通行證NFT",
-                type: "大眾層級",
-                category: "觀影通行證",
-                count: "限量56,000枚",
-                price: "¥88",
-                icon: "fas fa-ticket-alt",
-                description: "120分鐘AI電影一次性觀看權，消耗型NFT，使用即消耗。未來續集優先購買權，進入文化愛好者社群的入門級收藏。",
-                features: [
-                    "120分鐘完整電影觀看權",
-                    "一次性消耗型NFT",
-                    "未來續集優先購買權",
-                    "文化愛好者社群準入"
-                ]
-            }
-        };
-        
-        // Add random data streams
-        function createDataStreams() {
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const stream = document.createElement('div');
-                    stream.className = 'data-stream';
-                    stream.style.left = Math.random() * 100 + '%';
-                    stream.style.animationDelay = Math.random() * 2 + 's';
-                    document.body.appendChild(stream);
-                    
-                    // Remove after animation
-                    setTimeout(() => {
-                        stream.remove();
-                    }, 4000);
-                }, i * 3000);
-            }
+        // Language Toggle
+        function toggleLanguage() {
+            const body = document.body;
+            const currentLang = body.getAttribute('data-lang');
+            const newLang = currentLang === 'en' ? 'zh' : 'en';
+            body.setAttribute('data-lang', newLang);
+            localStorage.setItem('preferredLanguage', newLang);
         }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Start data streams
-            createDataStreams();
-            setInterval(createDataStreams, 15000);
-            
-            // Add scroll animations
-            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        if (entry.target.classList.contains('animate-slide-up')) {
-                            entry.target.style.transform = 'translateY(0)';
-                        }
-                        if (entry.target.classList.contains('animate-slide-right')) {
-                            entry.target.style.transform = 'translateX(0)';
-                        }
-                        if (entry.target.classList.contains('animate-fade-in')) {
-                            entry.target.style.transform = 'scale(1)';
-                        }
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                if (el.classList.contains('animate-slide-up')) {
-                    el.style.transform = 'translateY(50px)';
+
+        // Intersection Observer for Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
-                if (el.classList.contains('animate-slide-right')) {
-                    el.style.transform = 'translateX(-50px)';
-                }
-                if (el.classList.contains('animate-fade-in')) {
-                    el.style.transform = 'scale(0.95)';
-                }
-                observer.observe(el);
             });
-            
-            // Mobile menu functionality
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const mobileMenuClose = document.querySelector('.mobile-menu-close');
-            
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // 移動端菜單功能
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        
+        if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.add('open');
                 document.body.style.overflow = 'hidden';
@@ -2217,135 +1152,39 @@
                 document.body.style.overflow = 'auto';
             });
             
-            // Filter functionality
-            const filterPills = document.querySelectorAll('.filter-pill');
-            const nftItems = document.querySelectorAll('.nft-item');
-            
-            filterPills.forEach(pill => {
-                pill.addEventListener('click', () => {
-                    // Remove active class from all pills
-                    filterPills.forEach(p => p.classList.remove('active'));
-                    // Add active class to clicked pill
-                    pill.classList.add('active');
-                    
-                    const filter = pill.getAttribute('data-filter');
-                    
-                    nftItems.forEach(item => {
-                        const category = item.getAttribute('data-category');
-                        if (filter === 'all' || category === filter) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
-            });
-            
-            // NFT detail modal functionality
-            const modal = document.getElementById('nft-modal');
-            const closeBtn = document.querySelector('.close-modal');
-            const viewDetailBtns = document.querySelectorAll('.view-detail');
-            
-            // Open modal
-            viewDetailBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const nftItem = btn.closest('.nft-item');
-                    const nftId = nftItem.getAttribute('data-id');
-                    const nft = nftData[nftId];
-                    
-                    if (nft) {
-                        // Update modal icon
-                        const modalIcon = document.getElementById('modal-icon');
-                        modalIcon.className = nft.icon + ' text-7xl mb-4 text-orange-400';
-                        
-                        // Populate modal data
-                        document.getElementById('modal-title').textContent = nft.name;
-                        document.getElementById('modal-name').textContent = nft.name;
-                        document.getElementById('modal-type').textContent = nft.type;
-                        document.getElementById('modal-category').textContent = nft.category;
-                        document.getElementById('modal-count').textContent = nft.count;
-                        document.getElementById('modal-price').textContent = nft.price;
-                        document.getElementById('modal-description').textContent = nft.description;
-                        
-                        // Update features
-                        const featuresContainer = document.getElementById('modal-features');
-                        featuresContainer.innerHTML = `
-                            <ul class="space-y-2 text-gray-400">
-                                ${nft.features.map(feature => `
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-orange-400 mt-1 mr-2"></i>
-                                        <span>${feature}</span>
-                                    </li>
-                                `).join('')}
-                            </ul>
-                        `;
-                        
-                        // Show modal
-                        modal.style.display = 'block';
-                        document.body.style.overflow = 'hidden';
-                    }
-                });
-            });
-            
-            // Close modal
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            });
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
+            // 點擊導航項時關閉移動端菜單
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            mobileNavItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
                     document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Login option handlers
-            const loginOptions = document.querySelectorAll('.login-option');
-            
-            loginOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    const loginType = option.getAttribute('data-login');
-                    
-                    if (loginType === 'metamask' || loginType === 'walletconnect') {
-                        alert(`連接${loginType.charAt(0).toUpperCase() + loginType.slice(1)}錢包...`);
-                    } else {
-                        alert(`使用${loginType.charAt(0).toUpperCase() + loginType.slice(1)}登入...`);
-                    }
                 });
             });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Email subscription
-            const emailInput = document.querySelector('input[type="email"]');
-            const subscribeBtn = emailInput?.parentElement.querySelector('.btn-primary');
-            
-            if (emailInput && subscribeBtn) {
-                subscribeBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const email = emailInput.value;
-                    if (email && email.includes('@')) {
-                        alert('感謝您的訂閱！我們將第一時間向您發送最新消息。');
-                        emailInput.value = '';
-                    } else {
-                        alert('請輸入有效的電子郵件地址。');
-                    }
-                });
+        }
+
+        // Initialize on DOM Load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set language from localStorage
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang) {
+                document.body.setAttribute('data-lang', savedLang);
             }
+
+            // Observe all reveal elements
+            document.querySelectorAll('.reveal-text').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // 申請按鈕處理
+            const applicationButtons = document.querySelectorAll('[href="#partnership-application"]');
+            applicationButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#partnership-application') {
+                        e.preventDefault();
+                        alert('Partnership Application Portal Opening...\n\nThree-tier Partnership Model:\n\n• Innovation Center: $3M investment, 400-700% ROI\n• Flagship Center: $1.5M investment, 300-600% ROI\n• Standard Center: $800K investment, 250-500% ROI\n\nPlease contact us for details: partnership@hkaifa.academy');
+                    }
+                });
+            });
         });
     </script>
 </body>
